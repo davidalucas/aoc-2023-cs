@@ -73,11 +73,37 @@ public class TrebuchetTests
         ];
         Trebuchet.Calibrate(data, _numberMap).Should().Be(281);
     }
-    
+
     [Fact]
     public void Calibrate_Calculates_With_Word_Search_For_Real_Data()
     {
         string[] data = File.ReadAllLines("Day1/data.txt");
         Trebuchet.Calibrate(data, _numberMap).Should().Be(54431);
+    }
+
+
+    [Fact]
+    public async Task CalibrateAsync_Calculates_With_Word_Search_For_Example_Data()
+    {
+        string[] data =
+        [
+            "two1nine",
+            "eightwothree",
+            "abcone2threexyz",
+            "xtwone3four",
+            "4nineeightseven2",
+            "zoneight234",
+            "7pqrstsixteen",
+        ];
+        var result = await Trebuchet.CalibrateAsync(data, _numberMap);
+        result.Should().Be(281);
+    }
+    
+    [Fact]
+    public async Task CalibrateAsync_Calculates_With_Word_Search_For_Real_Data()
+    {
+        string[] data = await File.ReadAllLinesAsync("Day1/data.txt");
+        var result = await Trebuchet.CalibrateAsync(data, _numberMap);
+        result.Should().Be(54431);
     }
 }
