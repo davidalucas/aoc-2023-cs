@@ -27,4 +27,10 @@
       <ProjectReference Include="..\AdventOfCode23\AdventOfCode23.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="Day1\data.txt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>
