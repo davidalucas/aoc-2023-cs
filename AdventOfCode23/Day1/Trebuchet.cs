@@ -108,7 +108,7 @@ public static class Trebuchet
         result = 0;
         return false;
     }
-    
+
     /// <summary>
     ///     Performs the (reverse) word number parsing for the Day 1 Part 2 algorithm. This implementation tries to emulate the
     ///     .NET int.TryParse method to make the implementation in Calibrate look a little more cohesive.
@@ -133,5 +133,48 @@ public static class Trebuchet
 
         result = 0;
         return false;
+    }
+
+    /// <summary>
+    /// Performs the enhanced calibration from the AoC Day 1 Part 2 problem.
+    /// </summary>
+    /// <param name="lines">The data to parse in order to calculate the calibration factor.</param>
+    /// <param name="numMap">The number map to use for parsing out numbers represented as words (i.e. "one" for 1).</param>
+    /// <returns>The calculated calibration factor.</returns>
+    public static async Task<int> CalibrateAsync(IEnumerable<string> lines, Dictionary<string, int> numMap)
+    {
+        var lineArr = lines.ToArray();
+        var coordinates = new int[lineArr.Length];
+
+        var taskList = new Task[lineArr.Length];
+
+        for (var i = 0; i < lineArr.Length; i++)
+        {
+            var idx = i;
+
+            taskList[i] = Task.Run(() =>
+            {
+                var a = 0;
+                var b = 0;
+                
+                for (var j = 0; j < lineArr[idx].Length; j++)
+                {
+                    if (int.TryParse(lineArr[idx][j].ToString(), out a)) break;
+                    if (TryForwardWordParse(lineArr[idx], j, numMap, out a)) break;
+                }
+
+                for (var j = lineArr[idx].Length - 1; j >= 0; j--)
+                {
+                    if (int.TryParse(lineArr[idx][j].ToString(), out b)) break;
+                    if (TryReverseWordParse(lineArr[idx], j, numMap, out b)) break;
+                }
+
+                coordinates[idx] = a * 10 + b;
+            });
+        }
+
+        await Task.WhenAll(taskList);
+
+        return coordinates.Aggregate((i, j) => i + j);
     }
 }
