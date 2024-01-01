@@ -1,25 +1,12 @@
 using AdventOfCode23.Day1;
 using FluentAssertions;
 
+// ReSharper disable StringLiteralTypo
+
 namespace AdventOfCode23.Tests.Day1;
 
 public class TrebuchetTests
 {
-    [Fact]
-    public void Calibrate_Calculates_Example_Data()
-    {
-        string[] data = ["1abc2", "pqr3stu8vwx", "a1b2c3d4e5f", "treb7uchet"];
-        Trebuchet.Calibrate(data).Should().Be(142);
-    }
-
-    [Fact]
-    public void Calibrate_Calculates_Real_Data()
-    {
-        string[] data = File.ReadAllLines("Day1/data.txt");
-        Trebuchet.Calibrate(data).Should().Be(55477);
-    }
-
-
     private readonly Dictionary<string, int> _numberMap = new()
     {
         { "zero", 0 },
@@ -33,6 +20,20 @@ public class TrebuchetTests
         { "eight", 8 },
         { "nine", 9 }
     };
+
+    [Fact]
+    public void Calibrate_Calculates_Example_Data()
+    {
+        string[] data = ["1abc2", "pqr3stu8vwx", "a1b2c3d4e5f", "treb7uchet"];
+        Trebuchet.Calibrate(data).Should().Be(142);
+    }
+
+    [Fact]
+    public void Calibrate_Calculates_Real_Data()
+    {
+        var data = File.ReadAllLines("Day1/data.txt");
+        Trebuchet.Calibrate(data).Should().Be(55477);
+    }
 
     [Fact]
     public void TryForwardWordParse_Parses_First_Number()
@@ -69,7 +70,7 @@ public class TrebuchetTests
             "xtwone3four",
             "4nineeightseven2",
             "zoneight234",
-            "7pqrstsixteen",
+            "7pqrstsixteen"
         ];
         Trebuchet.Calibrate(data, _numberMap).Should().Be(281);
     }
@@ -77,7 +78,7 @@ public class TrebuchetTests
     [Fact]
     public void Calibrate_Calculates_With_Word_Search_For_Real_Data()
     {
-        string[] data = File.ReadAllLines("Day1/data.txt");
+        var data = File.ReadAllLines("Day1/data.txt");
         Trebuchet.Calibrate(data, _numberMap).Should().Be(54431);
     }
 
@@ -93,16 +94,16 @@ public class TrebuchetTests
             "xtwone3four",
             "4nineeightseven2",
             "zoneight234",
-            "7pqrstsixteen",
+            "7pqrstsixteen"
         ];
         var result = await Trebuchet.CalibrateAsync(data, _numberMap);
         result.Should().Be(281);
     }
-    
+
     [Fact]
     public async Task CalibrateAsync_Calculates_With_Word_Search_For_Real_Data()
     {
-        string[] data = await File.ReadAllLinesAsync("Day1/data.txt");
+        var data = await File.ReadAllLinesAsync("Day1/data.txt");
         var result = await Trebuchet.CalibrateAsync(data, _numberMap);
         result.Should().Be(54431);
     }
