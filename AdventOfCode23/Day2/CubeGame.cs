@@ -1,9 +1,27 @@
 ﻿namespace AdventOfCode23.Day2;
 
-public class CubeGame(int gameNumber, params Reveal[] reveals)
+public class CubeGame
 {
-    public int GameNumber { get; } = gameNumber;
-    public Reveal[] Reveals { get; } = reveals;
+    public int GameNumber { get; set; }
+    public Reveal[] Reveals { get; set; }
+
+    public CubeGame(int gameNumber, params Reveal[] reveals)
+    {
+        GameNumber = gameNumber;
+        Reveals = reveals;
+    }
+
+    public CubeGame(string data)
+    {
+        var gameTitle = data.Split(":")[0];
+        GameNumber = int.Parse(gameTitle.Split(" ")[1]);
+        
+        Reveals = data.Split(":")[1]
+            .Trim()
+            .Split("; ")
+            .Select(s => new Reveal(s))
+            .ToArray();
+    }
 
     /// <summary>
     ///     Checks whether the game is possible with the given constraints
