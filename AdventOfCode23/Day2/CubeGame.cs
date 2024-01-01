@@ -15,7 +15,7 @@ public class CubeGame
     {
         var gameTitle = data.Split(":")[0];
         GameNumber = int.Parse(gameTitle.Split(" ")[1]);
-        
+
         Reveals = data.Split(":")[1]
             .Trim()
             .Split("; ")
@@ -41,5 +41,20 @@ public class CubeGame
         }
 
         return true;
+    }
+
+    /// <summary>
+    ///     Performs the algorithm for AoC Day 2 Part 1
+    /// </summary>
+    /// <param name="data">The provided raw string data.</param>
+    /// <param name="maxRed">Maximum number of allowed red cubes.</param>
+    /// <param name="maxGreen">Maximum number of allowed green cubes.</param>
+    /// <param name="maxBlue">Maximum number of allowed blue cubes.</param>
+    /// <returns>The sum of the IDs of all possible Cube Games.</returns>
+    public static int SumAllPossible(IEnumerable<string> data, int maxRed, int maxGreen, int maxBlue)
+    {
+        return data.Select(s => new CubeGame(s))
+            .Select(cg => cg.IsPossible(maxRed, maxGreen, maxBlue) ? cg.GameNumber : 0)
+            .Aggregate((a, b) => a + b);
     }
 }

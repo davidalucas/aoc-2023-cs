@@ -1,5 +1,6 @@
 using AdventOfCode23.Day1;
 using FluentAssertions;
+// ReSharper disable StringLiteralTypo
 
 namespace AdventOfCode23.Tests.Day1;
 
@@ -18,7 +19,6 @@ public class TrebuchetTests
         string[] data = File.ReadAllLines("Day1/data.txt");
         Trebuchet.Calibrate(data).Should().Be(55477);
     }
-
 
     private readonly Dictionary<string, int> _numberMap = new()
     {
@@ -98,7 +98,7 @@ public class TrebuchetTests
         var result = await Trebuchet.CalibrateAsync(data, _numberMap);
         result.Should().Be(281);
     }
-    
+
     [Fact]
     public async Task CalibrateAsync_Calculates_With_Word_Search_For_Real_Data()
     {
