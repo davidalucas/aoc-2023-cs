@@ -50,7 +50,7 @@ public static class Trebuchet
     }
 
     /// <summary>
-    /// Performs the enhanced calibration from the AoC Day 1 Part 2 problem.
+    ///     Performs the enhanced calibration from the AoC Day 1 Part 2 problem.
     /// </summary>
     /// <param name="lines">The data to parse in order to calculate the calibration factor.</param>
     /// <param name="numMap">The number map to use for parsing out numbers represented as words (i.e. "one" for 1).</param>
@@ -123,7 +123,7 @@ public static class Trebuchet
         // loop over each item in the numMap
         foreach (var kvPair in numMap)
         {
-            int startIdx = currIdx - kvPair.Key.Length + 1;
+            var startIdx = currIdx - kvPair.Key.Length + 1;
             if (startIdx < 0 || startIdx + kvPair.Key.Length > line.Length) continue;
             var subStr = line.Substring(startIdx, kvPair.Key.Length);
             if (subStr != kvPair.Key) continue;
@@ -136,7 +136,7 @@ public static class Trebuchet
     }
 
     /// <summary>
-    /// Performs the enhanced calibration from the AoC Day 1 Part 2 problem.
+    ///     Performs the enhanced calibration from the AoC Day 1 Part 2 problem.
     /// </summary>
     /// <param name="lines">The data to parse in order to calculate the calibration factor.</param>
     /// <param name="numMap">The number map to use for parsing out numbers represented as words (i.e. "one" for 1).</param>
@@ -156,7 +156,7 @@ public static class Trebuchet
             {
                 var a = 0;
                 var b = 0;
-                
+
                 for (var j = 0; j < lineArr[idx].Length; j++)
                 {
                     if (int.TryParse(lineArr[idx][j].ToString(), out a)) break;
