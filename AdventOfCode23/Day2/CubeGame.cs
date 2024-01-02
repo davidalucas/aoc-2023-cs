@@ -23,6 +23,29 @@ public class CubeGame
     public int GameNumber { get; set; }
     public Reveal[] Reveals { get; set; }
 
+    public int Power
+    {
+        get
+        {
+            int reqReds = 0;
+            int reqGreens = 0;
+            int reqBlues = 0;
+            foreach (var r in Reveals)
+            {
+                if (r.Reds > reqReds) {
+                    reqReds = r.Reds;
+                }
+                if (r.Greens > reqGreens) {
+                    reqGreens = r.Greens;
+                }
+                if (r.Blues > reqBlues) {
+                    reqBlues = r.Blues;
+                }
+            }
+            return reqReds * reqGreens * reqBlues;
+        }
+    }
+
     /// <summary>
     ///     Checks whether the game is possible with the given constraints
     /// </summary>
