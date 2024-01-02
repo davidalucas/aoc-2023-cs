@@ -100,4 +100,11 @@ public class CubeGameTests
 
         actual.Should().BeEquivalentTo(expected);
     }
+    
+    [Fact]
+    public void SumAllPowers_Returns_Correct_Value_For_Real_Data()
+    {
+        var data = File.ReadAllLines("Day2/data.txt");
+        CubeGame.SumAllPowers(data).Should().Be(56580);
+    }
 }

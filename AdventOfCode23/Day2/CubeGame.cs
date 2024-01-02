@@ -76,4 +76,17 @@ public class CubeGame
             .Select(cg => cg.IsPossible(maxRed, maxGreen, maxBlue) ? cg.GameNumber : 0)
             .Aggregate((a, b) => a + b);
     }
+
+    /// <summary>
+    ///     Performs the algorithm for AoC Day 2 Part 2.
+    /// </summary>
+    /// <param name="data">The raw string data representing all of the cube games.</param>
+    /// <returns>The sum of all of the 'power factors' for each game.</returns>
+    public static int SumAllPowers(IEnumerable<string> data)
+    {
+        return data
+            .Select(s => new CubeGame(s))
+            .Select(g => g.Power)
+            .Aggregate((a, b) => a + b);
+    }
 }
