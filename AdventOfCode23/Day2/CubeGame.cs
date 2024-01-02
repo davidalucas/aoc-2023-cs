@@ -23,6 +23,29 @@ public class CubeGame
     public int GameNumber { get; set; }
     public Reveal[] Reveals { get; set; }
 
+    public int Power
+    {
+        get
+        {
+            int reqReds = 0;
+            int reqGreens = 0;
+            int reqBlues = 0;
+            foreach (var r in Reveals)
+            {
+                if (r.Reds > reqReds) {
+                    reqReds = r.Reds;
+                }
+                if (r.Greens > reqGreens) {
+                    reqGreens = r.Greens;
+                }
+                if (r.Blues > reqBlues) {
+                    reqBlues = r.Blues;
+                }
+            }
+            return reqReds * reqGreens * reqBlues;
+        }
+    }
+
     /// <summary>
     ///     Checks whether the game is possible with the given constraints
     /// </summary>
@@ -51,6 +74,19 @@ public class CubeGame
     {
         return data.Select(s => new CubeGame(s))
             .Select(cg => cg.IsPossible(maxRed, maxGreen, maxBlue) ? cg.GameNumber : 0)
+            .Aggregate((a, b) => a + b);
+    }
+
+    /// <summary>
+    ///     Performs the algorithm for AoC Day 2 Part 2.
+    /// </summary>
+    /// <param name="data">The raw string data representing all of the cube games.</param>
+    /// <returns>The sum of all of the 'power factors' for each game.</returns>
+    public static int SumAllPowers(IEnumerable<string> data)
+    {
+        return data
+            .Select(s => new CubeGame(s))
+            .Select(g => g.Power)
             .Aggregate((a, b) => a + b);
     }
 }
