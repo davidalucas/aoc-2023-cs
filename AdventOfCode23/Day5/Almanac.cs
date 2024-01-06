@@ -1,6 +1,4 @@
-﻿using System.Collections.Immutable;
-
-namespace AdventOfCode23.Day5;
+﻿namespace AdventOfCode23.Day5;
 
 public class Almanac(long[] seeds, AlmanacMap[][] maps)
 {
@@ -48,7 +46,7 @@ public class Almanac(long[] seeds, AlmanacMap[][] maps)
     public long FindMinimumLocation()
     {
         long minLocation = 0;
-        bool firstPass = true;
+        var firstPass = true;
         foreach (var seed in seeds)
         {
             var source = seed;
@@ -111,7 +109,7 @@ public class Almanac(long[] seeds, AlmanacMap[][] maps)
     public long FindRangedMinLocation()
     {
         long? minLocation = null;
-        for (int i = 0; i < Seeds.Length; i += 2)
+        for (var i = 0; i < Seeds.Length; i += 2)
         {
             var seed = Seeds[i];
             var seedRange = Seeds[i + 1];
