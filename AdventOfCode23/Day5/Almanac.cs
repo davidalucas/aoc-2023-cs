@@ -75,4 +75,32 @@ public class Almanac(long[] seeds, AlmanacMap[][] maps)
 
         return minLocation;
     }
+
+    /// <summary>
+    ///     This method is the key to Part 2. You give it both a source and a range, and it gives you back a
+    ///     AlmanacMap object which contains your destination and a new range. You can use that new range to jump
+    ///     forward on the next iteration of seed evaluation.
+    /// </summary>
+    /// <param name="mapCollectionIdx">The index of the map collection you're on.</param>
+    /// <param name="source">The source value.</param>
+    /// <param name="range">The current range.</param>
+    /// <returns>An AlmanacMap object containing the destination value, as well as the new adjusted range.</returns>
+    public AlmanacMap CalculateDestinationMap(int mapCollectionIdx, long source, long range)
+    {
+        foreach (var map in Maps[mapCollectionIdx])
+        {
+            if (map.Source > source) // our source is between the last map and this map
+                return new AlmanacMap(source, source, map.Source - source + 1);
+
+            var destination = map.CalculateDestination(source);
+            if (destination is not null) // we've found a valid map
+            {
+                if (range > map.Range) range = map.Range;
+
+                return new AlmanacMap(source, destination.Value, range - (source - map.Source));
+            }
+        }
+
+        return new AlmanacMap(source, source, range); // our source exceeds all of the map ranges
+    }
 }
