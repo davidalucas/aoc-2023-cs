@@ -1,4 +1,6 @@
-﻿namespace AdventOfCode23.Day5;
+﻿using System.Collections.Immutable;
+
+namespace AdventOfCode23.Day5;
 
 public class Almanac(long[] seeds, AlmanacMap[][] maps)
 {
@@ -39,7 +41,7 @@ public class Almanac(long[] seeds, AlmanacMap[][] maps)
         var mapArr = new AlmanacMap[data.Count];
         for (var i = 0; i < mapArr.Length; i++) mapArr[i] = AlmanacMap.FromString(data.Dequeue());
 
-        // if we wanted to sort the array, we could do it here before returning
+        Array.Sort(mapArr, (a, b) => a.Source.CompareTo(b.Source));
         return mapArr;
     }
 

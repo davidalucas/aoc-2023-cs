@@ -14,7 +14,7 @@ public class AlmanacMap(long source, long destination, long range)
     public long? CalculateDestination(long source)
     {
         var diff = source - Source;
-        return 0 <= diff && diff < Range ? Destination + (uint)diff : null;
+        return 0 <= diff && diff < Range ? Destination + diff : null;
     }
 
     /// <summary>
