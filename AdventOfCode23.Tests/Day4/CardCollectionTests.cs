@@ -16,4 +16,16 @@ public class CardCollectionTests
     {
         CardCollection.CalculateTotalScore("Day4/data.txt").Should().Be(23235);
     }
+
+    [Fact]
+    public void CalculateTotalCards_Gets_Correct_Score_For_Example_Data()
+    {
+        CardCollection.CalculateTotalCards("Day4/example.txt").Should().Be(30);
+    }
+    
+    [Fact]
+    public void CalculateTotalCards_Gets_Correct_Score_For_Real_Data()
+    {
+        CardCollection.CalculateTotalCards("Day4/data.txt").Should().Be(5920640);
+    }
 }
