@@ -63,4 +63,20 @@ public class AlmanacTests
         var result = almanac.FindMinimumLocation();
         result.Should().Be(227653707);
     }
+    
+    [Fact]
+    public void FindRangedMinLocation_Finds_Correct_Result_For_Example_Data()
+    {
+        var almanac = Almanac.FromFile("Day5/example.txt");
+        var result = almanac.FindRangedMinLocation();
+        result.Should().Be(46);
+    }
+    
+    [Fact]
+    public void FindRangedMinLocation_Finds_Correct_Result_For_Real_Data()
+    {
+        var almanac = Almanac.FromFile("Day5/data.txt");
+        var result = almanac.FindRangedMinLocation();
+        result.Should().Be(78775051);
+    }
 }

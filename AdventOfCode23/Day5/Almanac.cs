@@ -81,26 +81,60 @@ public class Almanac(long[] seeds, AlmanacMap[][] maps)
     ///     AlmanacMap object which contains your destination and a new range. You can use that new range to jump
     ///     forward on the next iteration of seed evaluation.
     /// </summary>
-    /// <param name="mapCollectionIdx">The index of the map collection you're on.</param>
+    /// <param name="mapCollection">The index of the map collection you're on.</param>
     /// <param name="source">The source value.</param>
     /// <param name="range">The current range.</param>
     /// <returns>An AlmanacMap object containing the destination value, as well as the new adjusted range.</returns>
-    public AlmanacMap CalculateDestinationMap(int mapCollectionIdx, long source, long range)
+    /// <remarks>This only works if the AlmanacMaps are sorted by their Source values.</remarks>
+    public static AlmanacMap CalculateDestinationMap(AlmanacMap[] mapCollection, long source, long range)
     {
-        foreach (var map in Maps[mapCollectionIdx])
+        foreach (var map in mapCollection)
         {
             if (map.Source > source) // our source is between the last map and this map
-                return new AlmanacMap(source, source, map.Source - source + 1);
+                return new AlmanacMap(source, source, map.Source - source);
 
             var destination = map.CalculateDestination(source);
-            if (destination is not null) // we've found a valid map
-            {
-                if (range > map.Range) range = map.Range;
+            if (destination is null) continue;
+            // if we get here, we've found a valid map
+            if (range > map.Range - (source - map.Source)) range = map.Range - (source - map.Source);
 
-                return new AlmanacMap(source, destination.Value, range - (source - map.Source));
-            }
+            return new AlmanacMap(source, destination.Value, range);
         }
 
         return new AlmanacMap(source, source, range); // our source exceeds all of the map ranges
+    }
+
+    /// <summary>
+    ///     This method calculates the solution for the Part 2 problem.
+    /// </summary>
+    /// <returns>The solution value.</returns>
+    public long FindRangedMinLocation()
+    {
+        long? minLocation = null;
+        for (int i = 0; i < Seeds.Length; i += 2)
+        {
+            var seed = Seeds[i];
+            var seedRange = Seeds[i + 1];
+            while (seed < Seeds[i] + seedRange)
+            {
+                var source = seed;
+                var range = seedRange - (Seeds[i] - seed);
+                foreach (var mapCollection in Maps)
+                {
+                    var result = CalculateDestinationMap(mapCollection, source, range);
+                    source = result.Destination;
+                    range = result.Range;
+                }
+
+                if (minLocation is null)
+                    minLocation = source;
+                else if (source < minLocation)
+                    minLocation = source;
+
+                seed += range;
+            }
+        }
+
+        return minLocation ?? throw new Exception("Failed to find any min location!");
     }
 }
