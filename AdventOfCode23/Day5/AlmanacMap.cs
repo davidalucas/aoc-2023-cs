@@ -6,6 +6,21 @@ public class AlmanacMap(int source, int destination, int range)
     public int Destination { get; set; } = destination;
     public int Range { get; set; } = range;
 
+    /// <summary>
+    ///     Calculates the destination using the provided source value.
+    /// </summary>
+    /// <param name="source"></param>
+    /// <returns>The resulting destination, or <see langword="null" /> if the provided source was outside of the allowed range.</returns>
+    public int? CalculateDestination(int source)
+    {
+        if (source - Source < Range)
+        {
+            return Destination + (source - Source);
+        }
+
+        return null;
+    }
+
     public static AlmanacMap FromString(string data)
     {
         var splitData = data.Trim().Split(" ");
