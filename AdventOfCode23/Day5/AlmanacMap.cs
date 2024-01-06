@@ -13,14 +13,14 @@ public class AlmanacMap(int source, int destination, int range)
     /// <returns>The resulting destination, or <see langword="null" /> if the provided source was outside of the allowed range.</returns>
     public int? CalculateDestination(int source)
     {
-        if (source - Source < Range)
-        {
-            return Destination + (source - Source);
-        }
-
-        return null;
+        return (source - Source < Range) ? Destination + (source - Source) : null;
     }
 
+    /// <summary>
+    ///     Constructs a new AlmanacMap using the provided string data.
+    /// </summary>
+    /// <param name="data">The string data for the map (as described in the Day 5 problem).</param>
+    /// <returns>A new AlmanacMap object.</returns>
     public static AlmanacMap FromString(string data)
     {
         var splitData = data.Trim().Split(" ");
