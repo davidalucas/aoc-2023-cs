@@ -47,4 +47,20 @@ public class AlmanacTests
         var actual = Almanac.FromFile("Day5/example.txt");
         actual.Should().BeEquivalentTo(expected);
     }
+
+    [Fact]
+    public void FindMinimumLocation_Finds_Correct_Result_For_Example_Data()
+    {
+        var almanac = Almanac.FromFile("Day5/example.txt");
+        var result = almanac.FindMinimumLocation();
+        result.Should().Be(35);
+    }
+    
+    [Fact]
+    public void FindMinimumLocation_Finds_Correct_Result_For_Real_Data()
+    {
+        var almanac = Almanac.FromFile("Day5/data.txt");
+        var result = almanac.FindMinimumLocation();
+        result.Should().Be(227653707);
+    }
 }

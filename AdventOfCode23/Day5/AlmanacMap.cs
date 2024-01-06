@@ -1,19 +1,20 @@
 ﻿namespace AdventOfCode23.Day5;
 
-public class AlmanacMap(int source, int destination, int range)
+public class AlmanacMap(long source, long destination, long range)
 {
-    public int Source { get; set; } = source;
-    public int Destination { get; set; } = destination;
-    public int Range { get; set; } = range;
+    public long Source { get; set; } = source;
+    public long Destination { get; set; } = destination;
+    public long Range { get; set; } = range;
 
     /// <summary>
     ///     Calculates the destination using the provided source value.
     /// </summary>
     /// <param name="source"></param>
     /// <returns>The resulting destination, or <see langword="null" /> if the provided source was outside of the allowed range.</returns>
-    public int? CalculateDestination(int source)
+    public long? CalculateDestination(long source)
     {
-        return (source - Source < Range) ? Destination + (source - Source) : null;
+        var diff = source - Source;
+        return 0 <= diff && diff < Range ? Destination + (uint)diff : null;
     }
 
     /// <summary>
@@ -24,9 +25,9 @@ public class AlmanacMap(int source, int destination, int range)
     public static AlmanacMap FromString(string data)
     {
         var splitData = data.Trim().Split(" ");
-        var source = int.Parse(splitData[1]);
-        var destination = int.Parse(splitData[0]);
-        var range = int.Parse(splitData[2]);
+        var source = long.Parse(splitData[1]);
+        var destination = long.Parse(splitData[0]);
+        var range = long.Parse(splitData[2]);
         return new AlmanacMap(source, destination, range);
     }
 }

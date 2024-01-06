@@ -17,7 +17,7 @@ public class AlmanacMapTests
     public void CalculateDestination_Returns_Correct_Value_For_Valid_Source()
     {
         AlmanacMap map = new(50, 52, 48);
-        var expected = 72;
+        long expected = 72;
         var actual = map.CalculateDestination(70);
         actual.Should().Be(expected);
     }
@@ -27,6 +27,10 @@ public class AlmanacMapTests
     {
         AlmanacMap map = new(50, 52, 48);
         var actual = map.CalculateDestination(1170);
+        actual.Should().BeNull();
+
+        map = new(98, 50, 2);
+        actual = map.CalculateDestination(79);
         actual.Should().BeNull();
     }
 }
