@@ -9,7 +9,7 @@ public class Card
     public Card(string line)
     {
         var splitCardNumber = line.Split(": ");
-        Id = int.Parse(splitCardNumber[0].Split(" ")[1]);
+        Id = int.Parse(splitCardNumber[0].Split(" ").Where(s => s != "").ElementAt(1));
 
         var splitWinningRevealed = splitCardNumber[1].Split(" | ");
 
@@ -31,6 +31,7 @@ public class Card
     public static int CalculateScore(string line)
     {
         var card = new Card(line);
-        return card.WinningNumbers.Count(winner => card.RevealedNumbers.Contains(winner));
+        var count = card.WinningNumbers.Count(winner => card.RevealedNumbers.Contains(winner));
+        return (int)Math.Pow(2, count-1);
     }
 }
