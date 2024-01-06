@@ -1,16 +1,17 @@
 ﻿namespace AdventOfCode23.Day5;
 
-public class AlmanacMap
+public class AlmanacMap(int source, int destination, int range)
 {
-    public int Source { get; set; }
-    public int Destination { get; set; }
-    public int Range { get; set; }
+    public int Source { get; set; } = source;
+    public int Destination { get; set; } = destination;
+    public int Range { get; set; } = range;
 
-    public AlmanacMap(string data)
+    public static AlmanacMap FromString(string data)
     {
         var splitData = data.Trim().Split(" ");
-        Source = int.Parse(splitData[1]);
-        Destination = int.Parse(splitData[0]);
-        Range = int.Parse(splitData[2]);
+        var source = int.Parse(splitData[1]);
+        var destination = int.Parse(splitData[0]);
+        var range = int.Parse(splitData[2]);
+        return new AlmanacMap(source, destination, range);
     }
 }

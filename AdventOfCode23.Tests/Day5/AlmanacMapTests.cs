@@ -6,11 +6,10 @@ namespace AdventOfCode23.Tests.Day5;
 public class AlmanacMapTests
 {
     [Fact]
-    public void AlmanacMapConstructor_Constructs_Correctly()
+    public void FromString_Constructs_Correct_AlmanacMap()
     {
-        var map = new AlmanacMap("50 98 2");
-        map.Source.Should().Be(98);
-        map.Destination.Should().Be(50);
-        map.Range.Should().Be(2);
+        var expected = new AlmanacMap(98, 50, 2);
+        var actual = AlmanacMap.FromString("50 98 2");
+        actual.Should().BeEquivalentTo(expected);
     }
 }
